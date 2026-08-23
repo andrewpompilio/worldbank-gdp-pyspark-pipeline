@@ -26,36 +26,30 @@ The pipeline follows the **Medallion Architecture** pattern:
 ---
 
 ## 📊 Star Schema Design
-+-------------------+
-        |   gold.dim_date   |
-        +-------------------+
-        | year (PK)         |
-        | decade            |
-        | is_recent         |
-        +---------+---------+
-                  |
-                  | 1:N
-                  v
-+---------------------+---------------------+
-|                  gold.fact_gdp            |
-+-------------------------------------------+
-| country_key (FK)                          |
-| year (FK)                                 |
-| indicator_id                              |
-| indicator_name                            |
-| gdp_usd                                   |
-+---------------------+---------------------+
-^
-| N:1
-|
-+-----------+-----------+
-|     gold.dim_country  |
-+-----------------------+
-| country_key (PK)      |
-| country_id            |
-| country_name          |
-| countryiso3code       |
-| effective_date        |
-| end_date              |
-| is_current            |
-+-----------------------+
+erDiagram
+    gold_dim_date ||--o{ gold_fact_gdp : "1:N"
+    gold_dim_country ||--o{ gold_fact_gdp : "1:N"
+
+    gold_fact_gdp {
+        bigint country_key FK
+        int year FK
+        string indicator_id
+        string indicator_name
+        double gdp_usd
+    }
+
+    gold_dim_country {
+        bigint country_key PK
+        string country_id
+        string country_name
+        string countryiso3code
+        date effective_date
+        date end_date
+        boolean is_current
+    }
+
+    gold_dim_date {
+        int year PK
+        int decade
+        boolean is_recent
+    }
