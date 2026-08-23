@@ -26,6 +26,7 @@ The pipeline follows the **Medallion Architecture** pattern:
 ---
 
 ## 📊 Star Schema Design
+```mermaid
 erDiagram
     gold_dim_date ||--o{ gold_fact_gdp : "1:N"
     gold_dim_country ||--o{ gold_fact_gdp : "1:N"
