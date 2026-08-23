@@ -26,7 +26,7 @@ The pipeline follows the **Medallion Architecture** pattern:
 ---
 
 ## 📊 Star Schema Design
-            +-------------------+
++-------------------+
             |   gold.dim_date   |
             +-------------------+
             | year (PK)         |
